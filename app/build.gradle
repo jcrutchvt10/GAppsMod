@@ -10,7 +10,10 @@ def keystoreAlias
 def keystoreAliasPSW
 
 Properties properties = new Properties()
-properties.load(project.rootProject.file("local.properties").newDataInputStream())
+def localPropsFile = project.rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    properties.load(localPropsFile.newDataInputStream())
+}
 def keystoreFilepath = properties.getProperty("keystore.path")
 
 if (keystoreFilepath) {
@@ -28,19 +31,19 @@ if (keystoreFilepath) {
 
 android {
     namespace "com.jacopomii.gappsmod"
-    compileSdk 33
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.jacopomii.gappsmod"
         minSdk 21
-        targetSdk 33
+        targetSdk 36
         versionCode 400
         versionName "4.00"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     signingConfigs {
@@ -80,7 +83,7 @@ android {
 
 dependencies {
     // Libsu
-    def libsuVersion = "5.0.5"
+    def libsuVersion = "6.0.0"
     implementation "com.github.topjohnwu.libsu:core:${libsuVersion}"
     implementation "com.github.topjohnwu.libsu:service:${libsuVersion}"
     implementation "com.github.topjohnwu.libsu:nio:${libsuVersion}"
@@ -95,15 +98,15 @@ dependencies {
     implementation "com.android.volley:volley:1.2.1"
 
     // Protobuf
-    implementation "com.google.protobuf:protobuf-javalite:3.23.1"
+    implementation "com.google.protobuf:protobuf-javalite:4.29.3"
 
     // Apache Commons
     //noinspection GradleDependency
-    implementation "commons-io:commons-io:2.12.0"
-    implementation "org.apache.commons:commons-lang3:3.12.0"
+    implementation "commons-io:commons-io:2.18.0"
+    implementation "org.apache.commons:commons-lang3:3.17.0"
 
     // Navigation drawer
-    def navigationVersion = "2.5.3"
+    def navigationVersion = "2.9.4"
     implementation "androidx.navigation:navigation-fragment:${navigationVersion}"
     implementation "androidx.navigation:navigation-ui:${navigationVersion}"
 
@@ -111,14 +114,14 @@ dependencies {
     implementation "io.github.l4digital:fastscroll:2.1.0"
 
     // Other UI Components
-    implementation "com.google.android.material:material:1.9.0"
-    implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "com.google.android.material:material:1.12.0"
+    implementation "androidx.appcompat:appcompat:1.7.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.2.1"
 }
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.23.1"
+        artifact = "com.google.protobuf:protoc:4.29.3"
     }
     generateProtoTasks {
         all().each { task ->
