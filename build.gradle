@@ -5,8 +5,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.3'
+        classpath 'com.android.tools.build:gradle:8.10.2'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.5'
         classpath 'com.likethesalad.android:stem-plugin:2.4.1'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -14,6 +14,6 @@ buildscript {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
